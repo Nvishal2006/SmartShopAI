@@ -1,20 +1,21 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+SmartShopAI
 
-# Run and deploy your AI Studio app
+Project Overview
 
-This contains everything you need to run your app locally.
+SmartShopAI aims to transform traditional retail by integrating AI-driven solutions that personalize shopping experiences and optimize sales. 
 
-View your app in AI Studio: https://ai.studio/apps/temp/1
+Key goals include:
 
-## Run Locally
+Providing intelligent product recommendations based on user preferences and behavior.
+Offering retailers actionable insights through sales analytics and customer behavior patterns.
+Enhancing customer engagement via AI-powered chatbots and notifications.
+Implementing a scalable, modular system suitable for large-scale retail environments.
 
-**Prerequisites:**  Node.js
+Features
 
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+AI-Based Recommendation System: Combines collaborative filtering and content-based filtering to suggest products.
+User Behavior Analytics: Tracks and analyzes customer interactions to improve recommendations.
+Personalized Dashboard: Retailers can view real-time analytics and insights.
+Smart Notifications: Sends alerts for discounts, trending products, and personalized offers.
+Chatbot Integration: AI-driven chatbot for customer support and engagement.
+Scalable Architecture: Designed to handle large data sets efficiently.

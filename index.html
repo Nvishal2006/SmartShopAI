@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartShopAi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Model Viewer for 3D/AR -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                dark: '#0F172A', // Deep Slate
+                light: '#334155',
+                accent: '#7C3AED', // Violet 600
+                accentHover: '#6D28D9',
+                secondary: '#10B981', // Emerald
+                gold: '#F59E0B',
+                danger: '#EF4444'
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-out',
+              'slide-up': 'slideUp 0.5s ease-out',
+              'slide-in-right': 'slideInRight 0.4s ease-out',
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'bounce-slight': 'bounceSlight 2s infinite',
+              'gradient-xy': 'gradient-xy 15s ease infinite',
+              'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { transform: 'translateY(20px)', opacity: '0' },
+                '100%': { transform: 'translateY(0)', opacity: '1' },
+              },
+              slideInRight: {
+                '0%': { transform: 'translateX(100%)', opacity: '0' },
+                '100%': { transform: 'translateX(0)', opacity: '1' },
+              },
+              bounceSlight: {
+                '0%, 100%': { transform: 'translateY(-5%)' },
+                '50%': { transform: 'translateY(0)' },
+              },
+              'gradient-xy': {
+                '0%, 100%': {
+                  'background-size': '400% 400%',
+                  'background-position': 'left center'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'right center'
+                }
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* RGB Border Animation */
+      @property --angle {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      .btn-rgb {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        border: none !important; /* Override default borders */
+      }
+
+      /* The spinning gradient background */
+      .btn-rgb::before {
+        content: '';
+        position: absolute;
+        top: -50%; left: -50%;
+        width: 200%; height: 200%;
+        background: conic-gradient(from var(--angle), transparent 20%, #ff0000, #00ff00, #0000ff, #ff0000);
+        animation: rotate 3s linear infinite;
+        z-index: -2;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      /* Show gradient on hover/active */
+      .btn-rgb:hover::before, .btn-rgb:focus::before, .btn-rgb:active::before {
+        opacity: 1;
+      }
+
+      /* The inner background to cover the center of the gradient */
+      .btn-rgb::after {
+        content: '';
+        position: absolute;
+        inset: 2px; /* Border width */
+        background: inherit;
+        border-radius: inherit;
+        z-index: -1;
+      }
+
+      @keyframes rotate {
+        from { --angle: 0deg; transform: rotate(0deg); }
+        to   { --angle: 360deg; transform: rotate(360deg); }
+      }
+      
+      /* Fallback for browsers without @property support */
+      @supports not (background: paint(something)) {
+        .btn-rgb:hover::before {
+           background: conic-gradient(transparent, #ff0000, #00ff00, #0000ff, #ff0000);
+           animation: spin-simple 3s linear infinite;
+        }
+        @keyframes spin-simple {
+          100% { transform: rotate(1turn); }
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-gray-50 text-gray-900 antialiased font-sans overflow-x-hidden">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

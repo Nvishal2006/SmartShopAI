@@ -10,6 +10,8 @@ interface HeaderProps {
   currentView: ViewState;
   onSearchFocus: () => void;
   onSearchSubmit: (term: string) => void;
+  onCategorySelect?: (category: string) => void;
+  selectedCategory: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({ 
@@ -19,7 +21,9 @@ export const Header: React.FC<HeaderProps> = ({
   onLoginClick, 
   currentView,
   onSearchFocus,
-  onSearchSubmit
+  onSearchSubmit,
+  onCategorySelect,
+  selectedCategory
 }) => {
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
   const [searchTerm, setSearchTerm] = useState('');
@@ -35,8 +39,9 @@ export const Header: React.FC<HeaderProps> = ({
   useEffect(() => {
     if (searchTerm.length > 0) {
       const matches = MOCK_PRODUCTS.filter(p => 
-        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category.toLowerCase().includes(searchTerm.toLowerCase())
+        (selectedCategory === 'All' || p.category === selectedCategory) &&
+        (p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+         p.category.toLowerCase().includes(searchTerm.toLowerCase()))
       ).slice(0, 5);
       setSuggestions(matches);
       setShowSuggestions(true);
@@ -44,7 +49,7 @@ export const Header: React.FC<HeaderProps> = ({
       setSuggestions([]);
       setShowSuggestions(false);
     }
-  }, [searchTerm]);
+  }, [searchTerm, selectedCategory]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -72,6 +77,9 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleDeptSelect = (category: string) => {
       onNavigate(ViewState.HOME);
+      if (onCategorySelect) {
+        onCategorySelect(category);
+      }
       setIsDeptOpen(false);
   }
 
@@ -115,10 +123,10 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="relative" ref={deptRef}>
                <button 
                  onClick={() => setIsDeptOpen(!isDeptOpen)}
-                 className="bg-gray-100 text-gray-700 px-4 py-2 text-sm border-r border-gray-200 hover:bg-gray-200 h-full font-medium flex items-center gap-1 transition-colors"
+                 className="bg-gray-100 text-gray-700 px-4 py-2 text-sm border-r border-gray-200 hover:bg-gray-200 h-full font-medium flex items-center gap-1.5 transition-colors min-w-[110px] justify-between"
                >
-                 Depts
-                 <svg className={`w-3 h-3 transition-transform ${isDeptOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                 <span className="truncate max-w-[80px]">{selectedCategory === 'All' ? 'Depts' : selectedCategory}</span>
+                 <svg className={`w-3 h-3 flex-shrink-0 transition-transform ${isDeptOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                </button>
                
                {isDeptOpen && (

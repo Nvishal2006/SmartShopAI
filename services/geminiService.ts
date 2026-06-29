@@ -3,7 +3,7 @@ import { MOCK_PRODUCTS, CATALOG_CONTEXT } from '../constants';
 import { Product } from '../types';
 
 // Initialize the client
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
 // Model selection
 const MODEL_CHAT = 'gemini-2.5-flash';

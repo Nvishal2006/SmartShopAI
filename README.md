@@ -75,6 +75,7 @@ This will compile the TypeScript code and bundle the assets into the `dist/` dir
     *   `SignIn.tsx`: User authentication view.
 *   `services/geminiService.ts`: Abstraction layer for interacting with the Google GenAI SDK.
 *   `constants.ts`: Mock data for products, categories, and initial states.
-
+  
+View this project : https://smart-shop-ai-liard.vercel.app/
 ---
 *Built with ❤️ to redefine retail.*
